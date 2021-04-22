@@ -1,0 +1,6 @@
+- hosts: raspberrypis
+  become: yes
+  tags:
+    - raspap
+  roles:
+    - rollback

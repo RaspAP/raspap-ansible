@@ -1,0 +1,36 @@
+---
+- name: Remove html directory
+  file:
+    path: /var/www/html
+    state: absent
+
+- name: Clone RaspAP project in html directory
+  git:
+    repo: https://github.com/RaspAP/raspap-webgui
+    dest: /var/www/html
+
+- name: Change html permissions to www-data
+  file:
+    path: /var/www/html
+    owner: www-data
+    group: www-data
+
+- name: Copy www-data sudoers rules
+  copy:
+    src: /var/www/html/installers/raspap.sudoers
+    dest: /etc/sudoers.d/090_raspap
+    remote_src: yes
+
+- name: Create RaspAP configuration directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: www-data
+    group: www-data
+  loop:
+    - /etc/raspap
+    - /etc/raspap/backups
+    - /etc/raspap/networking
+    - /etc/raspap/hostapd
+    - /etc/raspap/lighttpd
+    - /etc/raspap/openvpn

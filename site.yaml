@@ -1,0 +1,14 @@
+- hosts: raspberrypis
+  become: yes
+  tags:
+    - raspap
+  roles:
+    - raspap/setup
+    - raspap/defaults
+    - raspap/lighttp
+    - raspap/dhcpcd
+    - raspap/dnsmasq
+    - raspap/openvpn
+    - raspap/network
+    - raspap/hostapd
+    - raspap/raspapd

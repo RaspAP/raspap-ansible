@@ -1,0 +1,4 @@
+- name: Uninstall RaspAP
+  shell:
+    cmd: installers/uninstall.sh
+    chdir: /var/www/html

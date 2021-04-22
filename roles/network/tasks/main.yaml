@@ -1,0 +1,46 @@
+---
+- name: Stop and disable systemd-networkd
+  systemd:
+    name: systemd-networkd
+    enabled: no
+    state: stopped
+
+- name: Copy bridge configuration to systemd network folder
+  copy:
+    src: /var/www/html/config/raspap-bridge-br0.netdev
+    dest: /etc/systemd/network/raspap-bridge-br0.netdev
+    remote_src: yes
+
+- name: Copy bridge member to systemd network folder
+  copy:
+    src: /var/www/html/config/raspap-br0-member-eth0.network
+    dest: /etc/systemd/network/raspap-br0-member-eth0.network
+    remote_src: yes
+
+- name: Enable ip forwarding
+  copy:
+    src: local.conf
+    dest: /etc/sysctl.d/local.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable ip forwarding for current session (sysctl)
+  command: sysctl -p /etc/sysctl.d/local.conf
+
+- name: Enable ip forwarding for current session (procps)
+  command: /etc/init.d/procps restart
+
+- name: Enable traffic between clients on the WLAN and the internet (1)
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    jump: MASQUERADE
+
+- name: Enable traffic between clients on the WLAN and the internet (2)
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    source: 192.168.200.0/24
+    destination: '!192.168.200.0/24'
+    jump: MASQUERADE

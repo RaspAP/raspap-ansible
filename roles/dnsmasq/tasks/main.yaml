@@ -1,0 +1,26 @@
+---
+- name: Copy raspap dnsmasq configuration file in dnsmasq configuration directory
+  copy:
+    src: /var/www/html/config/090_raspap.conf
+    dest: /etc/dnsmasq.d/090_raspap.conf
+    remote_src: yes
+
+- name: Copy wlan0 dnsmasq configuration file in dnsmasq configuration directory
+  template:
+    src: 090_wlan0.conf
+    dest: /etc/dnsmasq.d/090_wlan0.conf
+    owner: www-data
+    group: www-data
+    mode: 0664
+  when: not dnsmasq_enable_uap0
+
+- name: Copy uap0 dnsmasq configuration file in dnsmasq configuration directory
+  template:
+    src: 090_uap0.conf
+    dest: /etc/dnsmasq.d/090_uap0.conf
+    owner: www-data
+    group: www-data
+    mode: 0664
+  when: dnsmasq_enable_uap0
+
+

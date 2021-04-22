@@ -1,0 +1,10 @@
+- name: Copy dhcpcd configuration file to remote
+  template:
+    src: dhcpcd.conf
+    dest: "{{ item }}"
+    owner: www-data
+    group: www-data
+    mode: 0664
+  with_items:
+    - /var/www/html/config/dhcpcd.conf
+    - /etc/dhcpcd.conf

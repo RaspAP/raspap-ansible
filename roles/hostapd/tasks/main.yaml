@@ -1,0 +1,33 @@
+- name: Copy hostapd configuration file in hostapd configuration directory
+  template:
+    src: hostapd.conf
+    dest: /etc/hostapd/hostapd.conf
+    remote_src: yes
+    backup: yes
+
+- name: Copy hotsapd control scripts to the configuration directory
+  copy:
+    src: "{{ item }}"
+    dest: /etc/raspap/hostapd
+    owner: root
+    group: www-data
+    mode: 0750
+    remote_src: yes
+  with_fileglob:
+    - /var/www/html/installers/*log.sh
+    - /var/www/html/installers/service*.sh
+
+- name: Configure hostapd for AP-STA mode
+  copy:
+    src: hostapd.ini
+    dest: /etc/raspap/hostapd.ini
+    owner: www-data
+    group: www-data
+    mode: 0644
+  when: hostapd_enable_uap0
+
+- name: Unmask and enable hostapd service
+  systemd:
+    name: hostapd
+    enabled: yes
+    masked: no

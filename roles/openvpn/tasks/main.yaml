@@ -1,0 +1,19 @@
+---
+- name: Copy raspap openvp script in raspap openvpn configuration directory
+  copy:
+    src: /var/www/html/installers/configauth.sh
+    dest: /etc/raspap/openvpn
+    owner: root
+    group: www-data
+    mode: 0750
+    remote_src: yes
+
+- name: Copy client.conf in openvpn configuration directory
+  copy:
+    src: client.conf
+    dest: /etc/openvpn/client/client.conf
+
+- name: Copy login.conf in openvpn configuration directory
+  copy:
+    src: login.conf
+    dest: /etc/openvpn/client/login.conf

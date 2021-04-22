@@ -1,0 +1,22 @@
+- name: Change uap0 ip address for iptables in common.sh
+  replace:
+    path: /var/www/html/installers/common.sh
+    regexp: "192.168.50.0/24"
+    replace: "{{ iptables_ip_address }}"
+
+- name: Change uap0 ip address for iptables in uninstall.sh
+  replace:
+    path: /var/www/html/installers/uninstall.sh
+    regexp: "192.168.50.0/24"
+    replace: "{{ iptables_ip_address }}"
+
+- name: Copy default.json to remote
+  template:
+    src: default.json
+    dest: /var/www/html/config/defaults.json
+    owner: www-data
+    group: www-data
+    mode: 0664
+  with_items:
+    - /var/www/html/config/defaults.json
+    - /etc/raspap/networking

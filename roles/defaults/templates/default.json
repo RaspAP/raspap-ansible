@@ -1,0 +1,37 @@
+{
+  "dhcp": {
+    "wlan0": { 
+      "static ip_address": [ "{{ wlan0_static_ip }}" ],
+      "static routers": [ "{{ wlan0_static_routers }}" ],
+      "static domain_name_server": [ "{{ wlan0_static_dns }}" ],
+      "subnetmask": [ "255.255.255.0" ]
+    },
+    "uap0": {
+      "static ip_address": [ "{{ uap0_static_ip }}" ],
+      "static routers": [ "{{ uap0_static_routers }}" ],
+      "static domain_name_server": [ "{{ uap0_static_dns }}" ],
+      "subnetmask": [ "255.255.255.0" ]
+    },
+    "options": {
+      "# RaspAP default configuration": null,
+      "hostname": null,
+      "clientid": null,
+      "persistent": null,
+      "option rapid_commit": null,
+      "option domain_name_servers, domain_name, domain_search, host_name": null,
+      "option classless_static_routes": null,
+      "option ntp_servers": null,
+      "require dhcp_server_identifier": null,
+      "slaac private": null,
+      "nohook lookup-hostname": null
+    }
+  },
+  "dnsmasq": {
+    "wlan0": {
+      "dhcp-range": [ "{{ wlan0_dhcp_start }},{{ wlan0_dhcp_end }},255.255.255.0,12h" ]
+    },
+    "uap0": {
+      "dhcp-range": [ "{{ uap0_dhcp_start }},{{ uap0_dhcp_end }},12h" ]
+    }
+  }
+}

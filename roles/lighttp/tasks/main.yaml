@@ -1,0 +1,57 @@
+---
+- name: Enable PHP for lighttpd
+  command: lighttpd-enable-mod fastcgi-php
+  register: result
+  failed_when:
+    - result.rc == 1
+
+- name: Copy config.php file to includes directory
+  template:
+    src: config.php
+    dest: "{{ item }}"
+    owner: www-data
+    group: www-data
+    mode: 0755
+  with_items:
+    - /var/www/html/config/config.php
+    - /var/www/html/includes
+
+- name: Copy raspap.php auth control file to the configuration directory
+  copy:
+    src: /var/www/html/raspap.php
+    dest: /etc/raspap
+    remote_src: yes
+
+- name: Copy lighttpd control scripts to the configuration directory
+  copy:
+    src: /var/www/html/installers/configport.sh
+    dest: /etc/raspap/lighttpd
+    owner: root
+    group: www-data
+    mode: 0750
+    remote_src: yes
+
+- name: Copy an extra lighttpd config file to support application routing
+  shell: |
+    WEBROOT="/var/www/html"
+    CONFSRC="$WEBROOT/config/50-raspap-router.conf"
+    LTROOT=$(grep "server.document-root" /etc/lighttpd/lighttpd.conf | awk -F '=' '{print $2}' | tr -d " \"")
+
+    HTROOT=${WEBROOT/$LTROOT}
+    HTROOT=$(echo "$HTROOT" | sed -e 's/\/$//')
+    awk "{gsub(\"/REPLACE_ME\",\"$HTROOT\")}1" $CONFSRC > /tmp/50-raspap-router.conf
+    cp /tmp/50-raspap-router.conf /etc/lighttpd/conf-available/
+  args:
+    executable: /bin/bash
+
+- name: Link extra lighttpd config file into conf-enabled
+  file:
+    src: /etc/lighttpd/conf-available/50-raspap-router.conf
+    dest: /etc/lighttpd/conf-enabled/50-raspap-router.conf
+    state: link
+
+- name: Lighttpd service restart
+  systemd:
+    name: lighttpd
+    state: restarted
+    daemon_reload: yes

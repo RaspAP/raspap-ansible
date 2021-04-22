@@ -1,0 +1,12 @@
+---
+- name: Copy raspapd service file to the correct location
+  copy:
+    src: /var/www/html/installers/raspapd.service
+    dest: /lib/systemd/system
+    remote_src: yes
+
+- name: Enable and start raspapd service
+  systemd:
+    name: raspapd
+    enabled: yes
+    state: restarted
