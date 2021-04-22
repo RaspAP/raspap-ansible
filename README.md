@@ -1,3 +1,5 @@
+![raspap-ansible-repo](https://repository-images.githubusercontent.com/356614013/8d3a6f80-a38f-11eb-9fd2-f43310fce18c)
+
 # raspap-ansible
 
 Ansible playbook for provisioning RaspAP
