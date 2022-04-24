@@ -36,13 +36,13 @@ define('RASPI_HOTSPOT_ENABLED', true);
 define('RASPI_NETWORK_ENABLED', true);
 define('RASPI_DHCP_ENABLED', true);
 define('RASPI_ADBLOCK_ENABLED', false);
-define('RASPI_OPENVPN_ENABLED', "{{ openvpn_enabled }}");
+define('RASPI_OPENVPN_ENABLED', {{ openvpn_enabled }});
 define('RASPI_TORPROXY_ENABLED', false);
 define('RASPI_CONFAUTH_ENABLED', true);
 define('RASPI_CHANGETHEME_ENABLED', true);
 define('RASPI_VNSTAT_ENABLED', true);
 define('RASPI_SYSTEM_ENABLED', true);
-define('RASPI_MONITOR_ENABLED', "{{ monitor_enabled }}");
+define('RASPI_MONITOR_ENABLED', {{ monitor_enabled }});
 
 // Locale settings
 define('LOCALE_ROOT', 'locale');

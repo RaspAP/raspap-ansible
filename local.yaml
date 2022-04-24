@@ -1,4 +1,4 @@
-- hosts: raspberrypis
+- hosts: local
   become: yes
   tags:
     - raspap

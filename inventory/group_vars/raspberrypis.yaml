@@ -3,8 +3,11 @@ ansible_ssh_user: pi
 ansible_ssh_pass: raspberry
 # ansible_ssh_private_key_file: <path_to_ssh_key>
 
+# skip systemd calls (true in container builds)
+skip_systemd: no
+
 # common.sh, uninstall.sh
-iptables_ip_adress: 192.168.50.0/24
+iptables_ip_address: 192.168.50.0/24
 
 # default.json
 wlan0_static_ip: 10.3.141.1/24
