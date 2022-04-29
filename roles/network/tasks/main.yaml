@@ -4,6 +4,7 @@
     name: systemd-networkd
     enabled: no
     state: stopped
+  when: not skip_systemd
 
 - name: Copy bridge configuration to systemd network folder
   copy:
@@ -42,5 +43,5 @@
     table: nat
     chain: POSTROUTING
     source: 192.168.200.0/24
-    destination: '!192.168.200.0/24'
+    destination: "!192.168.200.0/24"
     jump: MASQUERADE

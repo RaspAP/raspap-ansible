@@ -9,6 +9,5 @@
     - dhcpcd
     - dnsmasq
     - openvpn
-    - network
     - hostapd
     - raspapd

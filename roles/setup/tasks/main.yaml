@@ -1,4 +1,20 @@
 ---
+- name: Install dependencies
+  apt:
+    state: present
+    name:
+      - lighttpd
+      - dnsmasq
+      - hostapd
+      - iptables-persistent
+      - vnstat
+      - qrencode
+      - openvpn
+      - wireless-tools
+      - iw
+      - dhcpcd5
+      - php7.4-cgi
+
 - name: Remove html directory
   file:
     path: /var/www/html
@@ -23,7 +39,7 @@
 
 - name: Create RaspAP configuration directories
   file:
-    path: '{{ item }}'
+    path: "{{ item }}"
     state: directory
     owner: www-data
     group: www-data

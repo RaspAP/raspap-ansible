@@ -1,0 +1,19 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  validation-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run the playbook
+        run: |
+          ansible-playbook local.yaml --connection=local
+      - name: Check website is up
+        run: /bin/bash .github/check-website.sh
