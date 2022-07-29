@@ -31,4 +31,5 @@
     name: hostapd
     enabled: yes
     masked: no
-  when: not skip_systemd
+  when: not inside_container
+

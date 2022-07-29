@@ -1,4 +1,5 @@
-- hosts: raspberrypis
+- hosts: docker
+  connection: local
   become: yes
   tags:
     - raspap
@@ -11,3 +12,4 @@
     - openvpn
     - hostapd
     - raspapd
+

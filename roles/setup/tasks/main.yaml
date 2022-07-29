@@ -13,7 +13,21 @@
       - wireless-tools
       - iw
       - dhcpcd5
+      - wpasupplicant
+
+- name: Install php-cgi (debian 10)
+  apt:
+    state: present
+    name:
+      - php7.3-cgi
+  when: ansible_distribution == "Debian" and ansible_distribution_version == "10"
+
+- name: Install php-cgi (debian 11)
+  apt:
+    state: present
+    name:
       - php7.4-cgi
+  when: ansible_distribution == "Debian" and ansible_distribution_version == "11"
 
 - name: Remove html directory
   file:

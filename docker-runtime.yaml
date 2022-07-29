@@ -1,0 +1,7 @@
+- hosts: docker
+  connection: local
+  become: yes
+  tags:
+    - raspap
+  roles:
+    - network

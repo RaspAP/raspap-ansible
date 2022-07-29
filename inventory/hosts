@@ -1,5 +1,6 @@
 [raspberrypis]
 raspberrypi00
 
-[local]
+[docker]
 127.0.0.1
+
