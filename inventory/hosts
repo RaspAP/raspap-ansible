@@ -4,3 +4,6 @@ raspberrypi00
 [docker]
 127.0.0.1
 
+[local]
+127.0.0.1
+
