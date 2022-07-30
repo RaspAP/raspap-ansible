@@ -5,7 +5,7 @@
     remote_src: yes
     backup: yes
 
-- name: Copy hotsapd control scripts to the configuration directory
+- name: Copy hostapd control scripts to the configuration directory
   copy:
     src: "{{ item }}"
     dest: /etc/raspap/hostapd
@@ -32,4 +32,10 @@
     enabled: yes
     masked: no
   when: not inside_container
+
+- name: wpasupplicant set country code
+  lineinfile:
+    path: /etc/wpa_supplicant/wpa_supplicant.conf
+    regexp: "^country="
+    line: country={{ hostapd_country_code }}
 
