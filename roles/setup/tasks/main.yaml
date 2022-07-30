@@ -2,6 +2,7 @@
 - name: Install dependencies
   apt:
     state: present
+    update_cache: yes
     name:
       - lighttpd
       - dnsmasq
@@ -27,7 +28,7 @@
     state: present
     name:
       - php7.4-cgi
-  when: ansible_distribution == "Debian" and ansible_distribution_version == "11"
+  when: ansible_distribution != "Debian" and ansible_distribution_version != "10"
 
 - name: Remove html directory
   file:
