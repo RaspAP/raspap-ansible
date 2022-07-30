@@ -1,0 +1,12 @@
+- name: wpasupplicant make directory
+  file:
+    path: /etc/wpa_supplicant/
+    state: directory
+    mode: '0755'
+
+- name: wpasupplicant set country code
+  lineinfile:
+    path: /etc/wpa_supplicant/wpa_supplicant.conf
+    regexp: "^country="
+    line: country={{ hostapd_country_code }}
+

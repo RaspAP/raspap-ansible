@@ -33,9 +33,3 @@
     masked: no
   when: not inside_container
 
-- name: wpasupplicant set country code
-  lineinfile:
-    path: /etc/wpa_supplicant/wpa_supplicant.conf
-    regexp: "^country="
-    line: country={{ hostapd_country_code }}
-

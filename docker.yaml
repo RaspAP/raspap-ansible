@@ -11,5 +11,6 @@
     - dnsmasq
     - openvpn
     - hostapd
+    - wpasupplicant
     - raspapd
 
