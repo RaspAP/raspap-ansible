@@ -1,7 +1,7 @@
 - name: wpasupplicant config exists
   stat:
     path: /etc/wpa_supplicant/wpa_supplicant.conf
-    register: wpasupplicant_exists
+  register: wpasupplicant_exists
 
 - name: wpasupplicant set country code
   lineinfile:
