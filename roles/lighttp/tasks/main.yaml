@@ -55,4 +55,5 @@
     name: lighttpd
     state: restarted
     daemon_reload: yes
-  when: not skip_systemd
+  when: not inside_container
+

@@ -10,4 +10,5 @@
     name: raspapd
     enabled: yes
     state: restarted
-  when: not skip_systemd
+  when: not inside_container
+

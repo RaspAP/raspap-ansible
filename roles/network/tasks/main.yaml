@@ -4,7 +4,13 @@
     name: systemd-networkd
     enabled: no
     state: stopped
-  when: not skip_systemd
+  when: not inside_container
+
+- name: Make systemd network directory
+  file:
+    path: /etc/systemd/network/
+    state: directory
+  when: inside_container
 
 - name: Copy bridge configuration to systemd network folder
   copy:
@@ -31,6 +37,7 @@
 
 - name: Enable ip forwarding for current session (procps)
   command: /etc/init.d/procps restart
+  when: not inside_container
 
 - name: Enable traffic between clients on the WLAN and the internet (1)
   iptables:
@@ -45,3 +52,16 @@
     source: 192.168.200.0/24
     destination: "!192.168.200.0/24"
     jump: MASQUERADE
+
+- name: When inside a container enable routing mode in iptables (1)
+  iptables:
+    chain: DOCKER-USER
+    jump: RETURN
+    state: absent
+
+- name: When inside a container enable routing mode in iptables (2)
+  iptables:
+    chain: DOCKER-USER
+    jump: ACCEPT
+  when: inside_container
+
