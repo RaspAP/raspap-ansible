@@ -1,0 +1,14 @@
+- hosts: local
+  become: yes
+  tags:
+    - raspap
+  roles:
+    - setup
+    - defaults
+    - lighttp
+    - dhcpcd
+    - dnsmasq
+    - openvpn
+    - network
+    - hostapd
+    - raspapd
