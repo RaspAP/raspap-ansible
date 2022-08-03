@@ -5,7 +5,7 @@
     remote_src: yes
     backup: yes
 
-- name: Copy hotsapd control scripts to the configuration directory
+- name: Copy hostapd control scripts to the configuration directory
   copy:
     src: "{{ item }}"
     dest: /etc/raspap/hostapd
@@ -31,4 +31,5 @@
     name: hostapd
     enabled: yes
     masked: no
-  when: not skip_systemd
+  when: not inside_container
+

@@ -11,4 +11,5 @@
     - openvpn
     - network
     - hostapd
+    - wpasupplicant
     - raspapd

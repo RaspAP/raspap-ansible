@@ -1,1 +1,45 @@
-raspberrypis.yaml
+# inside container
+inside_container: "false"
+# common.sh, uninstall.sh
+iptables_ip_address: 192.168.50.0/24
+
+# default.json
+wlan0_static_ip: 10.3.141.1/24
+wlan0_static_routers: 10.3.141.1
+wlan0_static_dns: 1.1.1.1 8.8.8.8
+wlan0_dhcp_start: 10.3.141.50
+wlan0_dhcp_end: 10.3.141.255
+
+uap0_static_ip: 192.168.50.1/24
+uap0_static_routers: 192.168.50.1
+uap0_static_dns: 1.1.1.1 8.8.8.8
+uap0_dhcp_start: 192.168.50.50
+uap0_dhcp_end: 192.168.50.150
+
+# dhcpcd.conf
+dhcpcd_interface: wlan0 # uap0
+dhcpcd_ip: 10.3.141.1/24 # 192.168.200.1/24
+dhcpcd_routers: 10.3.141.1 # 192.168.200.1
+dhcpcd_dns: 9.9.9.9 1.1.1.1
+
+# 090_uap0.conf, 090_wlan0.conf
+dnsmasq_enable_uap0: no
+dnsmasq_uap0_dhcp_start: 192.168.200.50
+dnsmasq_uap0_dhcp_end: 192.168.200.150
+dnsmasq_uap0_dns: 1.1.1.1,8.8.8.8
+
+dnsmasq_wlan0_dhcp_start: 10.3.141.50
+dnsmasq_wlan0_dhcp_end: 10.3.141.255
+dnsmasq_wlan0_dns: 9.9.9.9,1.1.1.1
+
+# hostapd.conf
+hostapd_enable_uap0: no
+hostapd_ssid: raspi-webgui
+hostapd_wpa_passphrase: ChangeMe
+hostapd_interface: wlan0 # uap0
+hostapd_country_code: IT
+
+# config.php
+raspi_brand_text: RaspAP
+openvpn_enabled: "false"
+monitor_enabled: "false"
